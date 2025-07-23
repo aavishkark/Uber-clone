@@ -1,11 +1,10 @@
 import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-4xl font-bold text-blue-500">
-        Uber Clone
-      </Text>
-    </View>
+    <SafeAreaView>
+      <Text className="text-4xl font-bold text-blue-500">Uber Clone</Text>
+    </SafeAreaView>
   );
 }
