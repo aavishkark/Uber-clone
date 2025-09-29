@@ -4,10 +4,10 @@ import { useAuth } from '@clerk/clerk-expo'
 
 export default function Layout() {
 
-  const { isSignedIn } = useAuth()
+  const { isSignedIn } = useAuth();
 
   if (isSignedIn) {
-    return <Redirect href={'/'} />
+    return <Redirect href={'/(root)/(tabs)/home'} />
   }
   return (
     <Stack>
