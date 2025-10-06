@@ -8,9 +8,10 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, View, Text, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocationStore } from "@/store";
+import { router } from 'expo-router';
 
 export default function Page() {
-  const {setUserLocation, setUserDestination} = useLocationStore();
+  const {setUserLocation, setDestinationLocation} = useLocationStore();
   const [hasPermission, sethasPermission] = useState(false);
   const recentRides = [
     {
@@ -117,9 +118,15 @@ export default function Page() {
 
   }
 
-  const handleDestinationPress = () =>{
+  const handleDestinationPress = (location: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  }) => {
+    setDestinationLocation(location);
 
-  }
+    router.push("/(root)/find-ride");
+  };
 
   useEffect(()=>{
     const requestLocation = async () => {
@@ -131,8 +138,8 @@ export default function Page() {
       let location = await Location.getCurrentPositionAsync();
 
       const address = await Location.reverseGeocodeAsync({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        latitude: location.coords.latitude!,
+        longitude: location.coords.longitude!,
       })
 
       setUserLocation({
