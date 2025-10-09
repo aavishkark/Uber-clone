@@ -3,7 +3,7 @@ import * as Location from 'expo-location';
 import Map from '@/components/Map';
 import RideCard from '@/components/RideCard';
 import { icons, images } from '@/constants';
-import { useUser } from '@clerk/clerk-expo';
+import { useAuth, useUser } from '@clerk/clerk-expo';
 import React, { useEffect, useState } from 'react';
 import { FlatList, View, Text, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -113,9 +113,12 @@ export default function Page() {
 ];
   const loading = false;
 
+  const {signOut} = useAuth()
+
   const {user} = useUser();
   const handleSignOut = () =>{
-
+    signOut();
+    router.replace('/(auth)/signin')
   }
 
   const handleDestinationPress = (location: {

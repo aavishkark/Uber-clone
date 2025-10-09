@@ -1,11 +1,12 @@
 import { useAuth } from "@clerk/clerk-expo";
 import { useStripe } from "@stripe/stripe-react-native";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
+import * as React from 'react';
 import { Alert, Image, Text, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "./CustomButton";
 import { images } from "@/constants";
 import { fetchAPI } from "@/lib/fetch";
 import { useLocationStore } from "@/store";
@@ -44,6 +45,7 @@ const Payment = ({
   };
 
   const initializePaymentSheet = async () => {
+    console.log("hiii1")
     const { error } = await initPaymentSheet({
       merchantDisplayName: "Example, Inc.",
       intentConfiguration: {
@@ -71,7 +73,6 @@ const Payment = ({
               }),
             },
           );
-
           if (paymentIntent.client_secret) {
             const { result } = await fetchAPI("/(api)/(stripe)/pay", {
               method: "POST",
